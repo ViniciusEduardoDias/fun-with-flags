@@ -1,79 +1,65 @@
-import { Footer, Header, Card, Grid } from "./components"
+'use client';
 
-const countries = [
-  {
-    id: 1,
-    country: "Brazil",
-    capital: "Brasília",
-    region: "South America",
-    population: 214000000
-  },
-  {
-    id: 2,
-    country: "Japan",
-    capital: "Tokyo",
-    region: "Asia",
-    population: 125800000
-  },
-  {
-    id: 3,
-    country: "United States",
-    capital: "Washington, D.C.",
-    region: "North America",
-    population: 331000000
-  },
-  {
-    id: 4,
-    country: "Germany",
-    capital: "Berlin",
-    region: "Europe",
-    population: 83200000
-  },
-  {
-    id: 5,
-    country: "India",
-    capital: "New Delhi",
-    region: "Asia",
-    population: 1408000000
-  },
-  {
-    id: 6,
-    country: "France",
-    capital: "Paris",
-    region: "Europe",
-    population: 67000000
-  },
-  {
-    id: 7,
-    country: "Australia",
-    capital: "Canberra",
-    region: "Oceania",
-    population: 26000000
-  }
-];
+import { useEffect, useState } from "react";
+import { Footer, Header, Card, Grid } from "./components";
 
-console.log(countries);
-
+type Country = {
+  cca3: string;
+  flags: {
+    svg: string;
+  };
+  name: { common: string };
+  capital?: string[];
+  region: string;
+  population: number;
+};
 
 export default function Home() {
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try{
+      const response = await fetch("https://restcountries.com/v3.1/all");
+      const data: Country[] = await response.json();
+      setCountries(data);
+      }catch(error){
+        setError("Failed to fetch data!")
+        console.log(error)
+      } finally{
+        setLoading(false)
+      }}
+      fetchCountries();
+}, []);
+  if(loading) return <div>Loading...</div>;
+  if(error) return <div>{error}</div>
+
   return (
     <>
-      <Header></Header>
+      <Header />
       <main className="flex-1">
         <Grid>
-          {countries.map((country) => (
+          {countries.map(({cca3, flags, name, capital, region, population}, index) => {
+            const {svg: flag} = flags ?? {};
+            const {common: countryName} = name ?? {};
+            const [capitalName] = capital ?? [];
+          return(
             <Card
-              key={country.id}
-              country={country.country}
-              capital={country.capital}
-              region={country.region}
-              population={country.population}
+              index={index}
+              key={cca3}
+              flag={flag}
+              name={countryName}
+              capital={capitalName}
+              region={region}
+              population={population}
             />
-          ))}
+          )}
+        )}
         </Grid>
       </main>
-
-      <Footer></Footer>
+      <Footer />
     </>
-  )
+  );
 }
