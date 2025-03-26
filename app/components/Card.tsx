@@ -1,23 +1,22 @@
 import Image from "next/image";
 
 type CardProps = {
-    id: number,
     country: string,
     capital: string,
     region: string,
     population: number
 }
 
-const Card = ( {id, country, capital, region, population}: CardProps ) => {
+const Card = ( { country, capital, region, population}: CardProps ) => {
     return (
-        <div id={id.toString()} className="h-full overflow-hidden bg-white rounded-lg shadow-lg">
+        <div className="h-full overflow-hidden bg-white rounded-lg shadow-lg">
             <div className="aspect-video w-full">
             <Image
-            src="https://placehold.co/600x400"
-            width={600}
-            height={400}
-            className="w-full h-full object-cover"
-            alt="Placeholder image"
+                src="https://placehold.co/600x400"
+                width={600}
+                height={400}
+                className="w-full h-full object-cover"
+                alt="countryImage"
             />
             </div>
             <div className="p-6 text-sm text-gray-600">
