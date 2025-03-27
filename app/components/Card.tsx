@@ -19,7 +19,7 @@ const Card = ( { index, flag, name, capital, region, population}: CardProps ) =>
                 height={300}
                 className="w-full h-full object-cover"
                 alt={`Flag of ${name}`}
-                priority={index <= 12}
+                priority={index < 12}
             />
             </div>
             <div className="p-6 text-sm text-gray-600">
