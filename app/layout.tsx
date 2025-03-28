@@ -10,6 +10,9 @@ const notoSans = Noto_Sans({
 export const metadata: Metadata = {
   title: "Fun With Flags",
   description: "Flags of the world",
+  icons: {
+    icon: "/favicon.svg"
+  }
 };
 
 export default function RootLayout({
