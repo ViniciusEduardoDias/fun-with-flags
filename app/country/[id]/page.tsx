@@ -6,33 +6,52 @@ import { useEffect, useState } from "react";
 import { apiCountries } from "../../services";
 import { useParams } from "next/navigation";
 
+type Params = {
+    id: string;
+}
+type DetailsCountry = {
+    cca3: string;
+    flags: {
+      svg: string;
+    };
+    name: {
+        common: string
+    };
+    capital?: string[];
+    region: string;
+    population: number;
+    languages: Record<string, string>;
+    currencies: Record<string, {name: string; symbol: string}>
+    tld: string[];
+    borders: string[];
+  };
+
 export default function Country(){
     const params = useParams<Params>()
     const [id, setId] = useState<string | null>(null);
-    const name = "Brazil"
-    const [country, setCountry] = useState/*<Country>*/([]);
+    const [country, setCountry] = useState<DetailsCountry>();
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    
-    type Params = {
-        id: string;
-    }
 
     useEffect(()=>{
-        if(params && params.id !== id){
+        if(params?.id && params.id !== id){
             setId(params.id)
+            console.log(params.id)
         }
     }, [params, id])
 
     useEffect(() => {
     const fetchCountry = async () => {
-        const [response, error] = await apiCountries.getContry(id)
+        const [response, error] = await apiCountries.getCountry(id)
+
         setLoading(false)
+
         if(error){
             setError(error)
             console.log(error)
         }
-        setCountry(response)
+
+        setCountry(response[0])
     }
     if(id){
         fetchCountry();
@@ -40,8 +59,28 @@ export default function Country(){
 }, [id]);
 
     if(loading) return <div>Loading...</div>;
-    if(error) return <div>{error}</div>
-    console.log(country)
+    if(error) return <div>{error}</div>;
+    const {
+            flags,
+            name,
+            capital, 
+            region, 
+            population, 
+            languages, 
+            currencies, 
+            tld, 
+            borders
+        } = country ?? {};
+
+    const {svg: flag} = flags ?? {};
+    const {common: countryName} = name ?? {};
+    const [capitalName] = capital ?? [];
+    const languagesNames = Object.values(languages ?? {}).join(", ")
+    const currenciesNames = Object.values(currencies ?? {})
+        .map(({name, symbol}) => `${name}(${symbol})`)
+        .join(", ")
+    const [topLevelDomain] = tld ?? [];
+    const borderIds = borders ?.join(", ") ?? "";
 
     return (
         <>  
@@ -55,44 +94,44 @@ export default function Country(){
             <div className="grid grid-cols-1 md:grid-cols-[auto_1fr]">
                 <div className="aspect-video w-full">
                 <Image
-                    src="/flag-placeholder.svg"
+                    src={flag || "/flag-placeholder.svg"}
                     width={600}
                     height={400}
-                    className="w-full h-full object-cover"
+                    className="max-h-80 object-cover rounded-lg"
                     alt={`Flag of ${name}`}
                     priority
                 />
                 </div>
                 <div className="flex flex-col justify-center p-6 text-sm text-gray-600">
-                    <h2 className="text-xl font-semibold mb-4">Brazil {`(${id})`}</h2>
+                    <h2 className="text-xl font-semibold mb-4">{countryName}{`(${id})`}</h2>
                     <div className="space-y-2">
                         <div className="flex items-center gap-1">
                             <span className="font-semibold">Capital:</span>
-                            <span>Brasília</span>
+                            <span>{capitalName}</span>
                         </div>
                         <div className="flex items-center gap-1">
                             <span className="font font-semibold">Region:</span>
-                            <span>South America</span>
+                            <span>{region}</span>
                         </div>
                         <div className="flex items-center gap-1">
                             <span className="font-semibold">Population:</span>
-                            <span>210000000</span>
+                            <span>{population}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                            <span className="font-semibold">Languagens:</span>
-                            <span>Portuguese</span>
+                            <span className="font-semibold">Languages:</span>
+                            <span>{languagesNames}</span>
                         </div>
                         <div className="flex items-center gap-1">
                             <span className="font-semibold">Currencies:</span>
-                            <span>BRL</span>
+                            <span>{currenciesNames}</span>
                         </div>
                         <div className="flex items-center gap-1">
                             <span className="font-semibold">Top Level Domain:</span>
-                            <span>.br</span>
+                            <span>{topLevelDomain}</span>
                         </div>
                         <div className="flex items-center gap-1">
                             <span className="font-semibold">Borders:</span>
-                            <span>ARG, BOL, VEN, URU</span>
+                            <span>{borderIds}</span>
                         </div>
                     </div>
                 </div>
