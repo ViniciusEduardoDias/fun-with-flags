@@ -11,6 +11,9 @@ const ApiClient = (baseUrl) => ({
             console.log("API request failed: ", error)
             return [null, error.message]
         }
+    }, 
+    async put(endpoint){
+        return endpoint
     }
 })
 

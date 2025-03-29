@@ -38,7 +38,6 @@ export default function Country(){
         fetchCountry();
     }
 }, [id]);
-
     if(loading) return <div>Loading...</div>;
     if(error) return <div>{error}</div>
     console.log(country)
