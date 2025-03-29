@@ -17,7 +17,8 @@ const ApiClient = (baseUrl) => ({
 const api = ApiClient("https://restcountries.com/v3.1")
 
 const apiCountries = {
-    getAll: () => api.get("all")
+    getAll: () => api.get("all"),
+    getContry: (id) => api.get(`alpha/${id}`)
 }
 
 export { apiCountries }

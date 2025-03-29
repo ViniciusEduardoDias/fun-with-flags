@@ -1,13 +1,47 @@
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { apiCountries } from "../../services";
+import { useParams } from "next/navigation";
 
-type Props = {
-    params: Promise<{ id: string }>
-}
-export default async function Country({ params }: Props) {
-    const { id } = await params;
+export default function Country(){
+    const params = useParams<Params>()
+    const [id, setId] = useState<string | null>(null);
     const name = "Brazil"
+    const [country, setCountry] = useState/*<Country>*/([]);
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+    
+    type Params = {
+        id: string;
+    }
 
+    useEffect(()=>{
+        if(params && params.id !== id){
+            setId(params.id)
+        }
+    }, [params, id])
+
+    useEffect(() => {
+    const fetchCountry = async () => {
+        const [response, error] = await apiCountries.getContry(id)
+        setLoading(false)
+        if(error){
+            setError(error)
+            console.log(error)
+        }
+        setCountry(response)
+    }
+    if(id){
+        fetchCountry();
+    }
+}, [id]);
+
+    if(loading) return <div>Loading...</div>;
+    if(error) return <div>{error}</div>
+    console.log(country)
 
     return (
         <>  
@@ -26,6 +60,7 @@ export default async function Country({ params }: Props) {
                     height={400}
                     className="w-full h-full object-cover"
                     alt={`Flag of ${name}`}
+                    priority
                 />
                 </div>
                 <div className="flex flex-col justify-center p-6 text-sm text-gray-600">
