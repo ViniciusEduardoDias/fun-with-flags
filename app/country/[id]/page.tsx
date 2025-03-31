@@ -36,21 +36,17 @@ export default function Country(){
     useEffect(()=>{
         if(params?.id && params.id !== id){
             setId(params.id)
-            console.log(params.id)
         }
     }, [params, id])
 
     useEffect(() => {
     const fetchCountry = async () => {
         const [response, error] = await apiCountries.getCountry(id)
-
         setLoading(false)
-
         if(error){
             setError(error)
             console.log(error)
         }
-
         setCountry(response[0])
     }
     if(id){
@@ -74,14 +70,14 @@ export default function Country(){
 
     const {svg: flag} = flags ?? {};
     const {common: countryName} = name ?? {};
-    const [capitalName] = capital ?? [];
+    const [capitalName] = capital ?? ["Não há capital identificada!"];
     const languagesNames = Object.values(languages ?? {}).join(", ")
     const currenciesNames = Object.values(currencies ?? {})
         .map(({name, symbol}) => `${name}(${symbol})`)
         .join(", ")
     const [topLevelDomain] = tld ?? [];
-    const borderIds = borders ?.join(", ") ?? "";
-
+    const bordersIds = borders ?? [];
+    
     return (
         <>  
             <div>
@@ -91,8 +87,8 @@ export default function Country(){
                     </button>
                 </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-[auto_1fr]">
-                <div className="aspect-video w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr]">
+                <div className="flex items-center md:max-[400px]:">
                 <Image
                     src={flag || "/flag-placeholder.svg"}
                     width={600}
@@ -105,33 +101,32 @@ export default function Country(){
                 <div className="flex flex-col justify-center p-6 text-sm text-gray-600">
                     <h2 className="text-xl font-semibold mb-4">{countryName}{`(${id})`}</h2>
                     <div className="space-y-2">
-                        <div className="flex items-center gap-1">
-                            <span className="font-semibold">Capital:</span>
-                            <span>{capitalName}</span>
+                        <div>
+                            <span className="font-semibold">Capital:</span> {capitalName}
                         </div>
-                        <div className="flex items-center gap-1">
-                            <span className="font font-semibold">Region:</span>
-                            <span>{region}</span>
+                        <div>
+                            <span className="font font-semibold">Region:</span> {region}
                         </div>
-                        <div className="flex items-center gap-1">
-                            <span className="font-semibold">Population:</span>
-                            <span>{population}</span>
+                        <div>
+                            <span className="font-semibold">Population:</span> {population}
                         </div>
-                        <div className="flex items-center gap-1">
-                            <span className="font-semibold">Languages:</span>
-                            <span>{languagesNames}</span>
+                        <div>
+                            <span className="font-semibold">Languages:</span> {languagesNames}
                         </div>
-                        <div className="flex items-center gap-1">
-                            <span className="font-semibold">Currencies:</span>
-                            <span>{currenciesNames}</span>
+                        <div>
+                            <span className="font-semibold">Currencies:</span> {currenciesNames}
                         </div>
-                        <div className="flex items-center gap-1">
-                            <span className="font-semibold">Top Level Domain:</span>
-                            <span>{topLevelDomain}</span>
+                        <div>
+                            <span className="font-semibold">Top Level Domain:</span> {topLevelDomain}
                         </div>
-                        <div className="flex items-center gap-1">
-                            <span className="font-semibold">Borders:</span>
-                            <span>{borderIds}</span>
+                        <div className="md:max-w-80">
+                            <span className="font-semibold">Borders:</span> {bordersIds.length > 0 ? bordersIds.map((borderId) => (
+                                <Link key={borderId} href={`/country/${borderId}`}>
+                                <button className="bg-gray-200 hover:bg-gray-800 hover:text-white py-[1.5px] px-2 rounded mb-2 mr-2">
+                                    {borderId}
+                                </button>
+                                </Link>
+                            )) : "None"}
                         </div>
                     </div>
                 </div>
