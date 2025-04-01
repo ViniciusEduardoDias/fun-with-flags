@@ -10,5 +10,3 @@ export const formatNumber = (number: number | undefined) => {
 
     return `${scaled.toFixed(1).replace(/\.0/,"")}${units[tier]}`
 }   
-
-console.log(formatNumber(99999999))
