@@ -10,6 +10,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "fun-with-flags": "file:",
     "husky": "^9.1.7",
     "next": "15.2.4",
