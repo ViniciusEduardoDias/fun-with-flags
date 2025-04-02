@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { Card, Grid, Search } from "./components";
+import { Card, Grid, Search, Select } from "./components";
 import { apiCountries } from "./services";
 import Link from "next/link";
 
@@ -21,6 +21,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [search, setSearch] = useState("")
+  const [selected, setSelected] = useState("All")
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -39,20 +40,30 @@ export default function Home() {
   if(loading) return <div>Loading...</div>;
   if(error) return <div>{error}</div>
 
+  const regions = [...new Set(countries.map(({ region }) => region))]
+
   const sortedCountries = (countries ?? []).sort((a, b) =>
     a.name.common.localeCompare(b.name.common, "en-US")
   );
 
-  const filteredCountries = sortedCountries.filter(({name}) =>
-    name.common.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredCountries = sortedCountries.filter(({name, region}) => {
+    const nameMatches = name.common.toLowerCase().includes(search.toLowerCase())
+    const regionMatches = selected === "All" || selected === region
+
+    return nameMatches && regionMatches
+  });
   return (
     <>
-      <div className="mb-8">
+      <div className="flex justify-between mb-8">
         <Search 
           count={filteredCountries.length}
           search={search}
           setSearch={setSearch}
+        />
+        <Select 
+          options={regions}
+          selected={selected}
+          setSelected={setSelected}
         />
       </div>
       <Grid>
