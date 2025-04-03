@@ -21,35 +21,33 @@
 1. **Clone o repositório**:
 
    ```
-   git clone https://github.com/ViniciusEduardoDias/fun-with-flags.git```
-   
-
+   git clone https://github.com/ViniciusEduardoDias/fun-with-flags.git
+   ```
 2. **Navegue até o diretório do projeto**:
 
-´´´
+```
 cd fun-with-flags
-´´´
+```
 
 3. **Instale as dependências**:
 
-´´´
+```
 npm install
-´´´
+```
 ou
-
-´´´
+```
 yarn install
-´´´ 
+``` 
 4. **Inicie o servidor de desenvolvimento**:
 
-´´´
+```
 npm run dev
-´´´
+```
 ou
 
-´´´
+```
 yarn dev
-´´´
+```
 
 5. **Acesse a aplicação**:
 
@@ -57,11 +55,11 @@ yarn dev
 
 ```
 http://localhost:3000
-´´´
+```
 
 6. Estrutura do Projeto
 
-´´´plaintext
+```plaintext
 
 /fun-with-flags
 │── /components   # Componentes reutilizáveis
@@ -71,4 +69,4 @@ http://localhost:3000
 │── package.json  # Dependências e scripts do projeto
 │── tsconfig.json # Configuração do TypeScript
 │── README.md     # Documentação do projeto
-´´´
+```
