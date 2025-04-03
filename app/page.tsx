@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { Card, Grid, Search, Select } from "./components";
+import { Card, Grid, Search, Select, ErrorMessage, Loading } from "./components";
 import { apiCountries } from "./services";
 import Link from "next/link";
 
@@ -37,8 +37,8 @@ export default function Home() {
       fetchCountries();
 }, []);
 
-  if(loading) return <div>Loading...</div>;
-  if(error) return <div>{error}</div>
+  if(loading) return <Loading text="Discovering countries..." />
+  if(error) return <ErrorMessage text={error}/>
 
   const regions = ["All", ...new Set(countries.map(({ region }) => region))]
 
