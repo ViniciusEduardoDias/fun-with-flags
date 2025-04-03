@@ -21,8 +21,8 @@
 1. **Clone o repositório**:
 
    ```
-   git clone https://github.com/ViniciusEduardoDias/fun-with-flags.git
-   ´´´
+   git clone https://github.com/ViniciusEduardoDias/fun-with-flags.git```
+   
 
 2. **Navegue até o diretório do projeto**:
 
