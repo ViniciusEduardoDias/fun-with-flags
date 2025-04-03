@@ -51,11 +51,11 @@ yarn dev
 
 5. **Acesse a aplicação**:
 
-1. Abra o navegador e vá para:
+   1. Abra o navegador e vá para:
 
-```
-http://localhost:3000
-```
+   ```
+   http://localhost:3000
+   ```
 
 6. Estrutura do Projeto
 
