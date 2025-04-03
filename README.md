@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![Fun with flags screenshot](public/screenshot-fun-with-flags.JPG)
 
-## Getting Started
+# Fun with Flags
 
-First, run the development server:
+**Fun with Flags** é um projeto desenvolvido para explorar e aprender sobre os países do mundo. Ele oferece uma interface interativa onde os usuários podem visualizar, pesquisar e obter informações sobre diferentes bandeiras.
 
-```bash
+## Tecnologias Utilizadas
+
+- **Next.js**: Framework React para desenvolvimento de aplicações web modernas.
+- **TypeScript**: Superset do JavaScript que adiciona tipagem estática ao código.
+- **Styled Components**: Biblioteca para estilização de componentes utilizando CSS-in-JS e TailwindCSS.
+
+## Funcionalidades
+
+- ✅ **Visualização de Bandeiras**: Exibe uma lista de bandeiras de diversos países.
+- ✅ **Detalhes do País**: Ao selecionar uma bandeira, o usuário pode visualizar informações detalhadas sobre o país correspondente.
+- ✅ **Pesquisa**: Funcionalidade para buscar países específicos pelo nome e/ou região.
+
+## Como Executar o Projeto
+
+1. **Clone o repositório**:
+
+   ```
+   git clone https://github.com/ViniciusEduardoDias/fun-with-flags.git
+   ´´´
+
+2. **Navegue até o diretório do projeto**:
+
+´´´
+cd fun-with-flags
+´´´
+
+3. **Instale as dependências**:
+
+´´´
+npm install
+´´´
+ou
+
+´´´
+yarn install
+´´´ 
+4. **Inicie o servidor de desenvolvimento**:
+
+´´´
 npm run dev
-# or
+´´´
+ou
+
+´´´
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
+´´´
+
+5. **Acesse a aplicação**:
+
+1. Abra o navegador e vá para:
+
 ```
+http://localhost:3000
+´´´
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Estrutura do Projeto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+´´´plaintext
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+/fun-with-flags
+│── /components   # Componentes reutilizáveis
+│── /pages        # Páginas do projeto (Next.js)
+│── /styles       # Estilos globais e temas
+│── /utils        # Funções utilitárias
+│── package.json  # Dependências e scripts do projeto
+│── tsconfig.json # Configuração do TypeScript
+│── README.md     # Documentação do projeto
+´´´

@@ -1,1 +1,1 @@
-export * from "./formatters"
+export * from "./formatNumber"
